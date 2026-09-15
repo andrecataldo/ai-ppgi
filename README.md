@@ -39,6 +39,29 @@ desenvolvidos ao longo da disciplina de Inteligência Artificial.
 - Greedy Best-First Search
 - A*
 - Tree of Thoughts
+- NUMPUZ / 8-puzzle
+
+#### NUMPUZ
+
+Aplicação interativa do clássico 8-puzzle utilizada para demonstrar
+busca não informada e busca informada.
+
+A implementação compara:
+
+- BFS;
+- A* + Misplaced Tiles;
+- A* + Manhattan Distance.
+
+A aplicação permite jogar manualmente, resolver o puzzle automaticamente,
+acompanhar a solução passo a passo e comparar custo, estados expandidos,
+estados gerados e tempo de execução.
+
+Código e documentação:
+
+```text
+apps/numpuz/
+```
+
 
 ## Implementações
 
