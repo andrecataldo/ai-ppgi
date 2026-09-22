@@ -1,0 +1,850 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/andre-cataldo/ontologies/2026/8/untitled-ontology-4/"
+     xml:base="http://www.semanticweb.org/andre-cataldo/ontologies/2026/8/untitled-ontology-4/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:vieses-llm="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#baseiaSeEm -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#baseiaSeEm">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#JulgamentoDecisao"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ArtefatoInteracao"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#confrontaResposta -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#confrontaResposta">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Evidencia"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#RespostaLLM"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#contemAncora -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#contemAncora">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ArtefatoInteracao"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Ancora"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#emergeDaInteracao -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#emergeDaInteracao">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#envolveHumano -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#envolveHumano">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#participaEm"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Humano"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#envolveLLM -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#envolveLLM">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#usadoEmInteracao"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#executaTarefa -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#executaTarefa">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#expressaCrenca -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#expressaCrenca">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Prompt"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#CrencaPrevia"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#geradaPorLLM -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#geradaPorLLM">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#RespostaLLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#influenciaJulgamento -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#influenciaJulgamento">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Ancora"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#JulgamentoDecisao"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#manifestaVies -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#manifestaVies">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#manifestadoPor"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Agente"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#manifestadoPor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#manifestadoPor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Agente"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ocorreEmInteracao -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ocorreEmInteracao">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#temVies"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#participaEm -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#participaEm">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Humano"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#possuiCrencaPrevia -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#possuiCrencaPrevia">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Humano"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#CrencaPrevia"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#possuiPrompt -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#possuiPrompt">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Prompt"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#produzResposta -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#produzResposta">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#RespostaLLM"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#respostaAlinhadaCom -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#respostaAlinhadaCom">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#RespostaLLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#CrencaPrevia"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#resultaEm -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#resultaEm">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#JulgamentoDecisao"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#temFenomenoConfianca -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#temFenomenoConfianca">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#FenomenoConfianca"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#temVies -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#temVies">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#usadoEmInteracao -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#usadoEmInteracao">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#codigoParticipante -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#codigoParticipante">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Humano"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#dataHoraInteracao -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#dataHoraInteracao">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#descricaoCrenca -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#descricaoCrenca">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#CrencaPrevia"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#descricaoEvidencia -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#descricaoEvidencia">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Evidencia"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#descricaoTarefa -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#descricaoTarefa">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#dominioTarefa -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#dominioTarefa">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#nivelConfianca -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#nivelConfianca">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#FenomenoConfianca"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#nomeModelo -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#nomeModelo">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#numeroTurnos -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#numeroTurnos">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#resultadoJulgamento -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#resultadoJulgamento">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#JulgamentoDecisao"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#textoPrompt -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#textoPrompt">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Prompt"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#textoResposta -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#textoResposta">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#RespostaLLM"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#valorAncora -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#valorAncora">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Ancora"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#versaoModelo -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#versaoModelo">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Agente -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Agente"/>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Ancora -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Ancora">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ArtefatoInteracao"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ArtefatoInteracao -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ArtefatoInteracao"/>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ConfiancaCalibrada -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ConfiancaCalibrada">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#FenomenoConfianca"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ConfiancaDescalibrada -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ConfiancaDescalibrada">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#FenomenoConfianca"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#CrencaPrevia -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#CrencaPrevia"/>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Evidencia -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Evidencia">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ArtefatoInteracao"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#FenomenoConfianca -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#FenomenoConfianca"/>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Humano -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Humano">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Agente"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#SistemaIA"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoComSobredependencia -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoComSobredependencia">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#temFenomenoConfianca"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Sobredependencia"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoComVies -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoComVies">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#temVies"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoComViesAncoragem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoComViesAncoragem">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#temVies"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesAncoragem"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoComViesAutomacao -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoComViesAutomacao">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#temVies"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesAutomacao"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoComViesConfirmacao -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoComViesConfirmacao">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#temVies"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesConfirmacao"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#envolveHumano"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Humano"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#envolveLLM"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#executaTarefa"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#TarefaDecisao"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#TarefaJulgamento"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#JulgamentoDecisao -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#JulgamentoDecisao"/>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#SistemaIA"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Prompt -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Prompt">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ArtefatoInteracao"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#RecomendacaoLLM -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#RecomendacaoLLM">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#RespostaLLM"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#RespostaLLM -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#RespostaLLM">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ArtefatoInteracao"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#geradaPorLLM"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#SistemaIA -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#SistemaIA">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Agente"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Sobredependencia -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Sobredependencia">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#FenomenoConfianca"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa"/>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#TarefaDecisao -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#TarefaDecisao">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#TarefaJulgamento -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#TarefaJulgamento">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesAncoragem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesAncoragem">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesAutomacao -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesAutomacao">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesConfirmacao -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesConfirmacao">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesEmergenteDaInteracao -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesEmergenteDaInteracao">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#emergeDaInteracao"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesManifestadoPorHumano -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesManifestadoPorHumano">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#manifestadoPor"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Humano"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesManifestadoPorLLM -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesManifestadoPorLLM">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#manifestadoPor"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesCognitivo"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Ancora_01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Ancora_01">
+        <rdf:type rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Ancora"/>
+        <vieses-llm:influenciaJulgamento rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Julgamento_Ancoragem_01"/>
+        <vieses-llm:valorAncora>9 de 10</vieses-llm:valorAncora>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Interacao_Ancoragem_01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Interacao_Ancoragem_01">
+        <rdf:type rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <vieses-llm:envolveHumano rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Participante_P01"/>
+        <vieses-llm:envolveLLM rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM_Exemplo"/>
+        <vieses-llm:executaTarefa rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa_Avaliacao_Texto"/>
+        <vieses-llm:possuiPrompt rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Prompt_Ancoragem_01"/>
+        <vieses-llm:resultaEm rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Julgamento_Ancoragem_01"/>
+        <vieses-llm:temVies rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Vies_Ancoragem_01"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Interacao_Confirmacao_01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Interacao_Confirmacao_01">
+        <rdf:type rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#InteracaoHumanoLLM"/>
+        <vieses-llm:envolveHumano rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Participante_P01"/>
+        <vieses-llm:envolveLLM rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM_Exemplo"/>
+        <vieses-llm:executaTarefa rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa_Avaliacao_Texto"/>
+        <vieses-llm:temVies rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Vies_Confirmacao_01"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Julgamento_Ancoragem_01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Julgamento_Ancoragem_01">
+        <rdf:type rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#JulgamentoDecisao"/>
+        <vieses-llm:resultadoJulgamento>O participante reavaliou o texto atribuindo nota 8 de 10.</vieses-llm:resultadoJulgamento>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM_Exemplo -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM_Exemplo">
+        <rdf:type rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#LLM"/>
+        <vieses-llm:nomeModelo>LLM de exemplo</vieses-llm:nomeModelo>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Participante_P01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Participante_P01">
+        <rdf:type rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Humano"/>
+        <vieses-llm:codigoParticipante>P01</vieses-llm:codigoParticipante>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Prompt_Ancoragem_01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Prompt_Ancoragem_01">
+        <rdf:type rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Prompt"/>
+        <vieses-llm:contemAncora rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Ancora_01"/>
+        <vieses-llm:textoPrompt>Considere que a avaliação inicial do texto foi 9 de 10. Reavalie a qualidade do texto.</vieses-llm:textoPrompt>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa_Avaliacao_Texto -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Tarefa_Avaliacao_Texto">
+        <rdf:type rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#TarefaJulgamento"/>
+        <vieses-llm:descricaoTarefa>Avaliar a qualidade de um texto</vieses-llm:descricaoTarefa>
+        <vieses-llm:dominioTarefa>Avaliação de texto</vieses-llm:dominioTarefa>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Vies_Ancoragem_01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Vies_Ancoragem_01">
+        <rdf:type rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesAncoragem"/>
+        <vieses-llm:emergeDaInteracao rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Interacao_Ancoragem_01"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Vies_Confirmacao_01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Vies_Confirmacao_01">
+        <rdf:type rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#ViesConfirmacao"/>
+        <vieses-llm:manifestadoPor rdf:resource="http://www.semanticweb.org/andrecataldo/ontologies/2026/9/vieses-llm#Participante_P01"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
