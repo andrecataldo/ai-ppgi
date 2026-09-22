@@ -12,6 +12,7 @@ from puzzle import (
 from solver import (
     astar,
     bfs,
+    dfs,
 )
 
 
@@ -177,6 +178,145 @@ class BFSTests(unittest.TestCase):
             0.0,
         )
 
+    def test_custom_goal(self):
+        custom_goal = (
+            1, 2, 3,
+            4, 5, 6,
+            7, 0, 8,
+        )
+
+        result = bfs(
+            GOAL_STATE,
+            custom_goal,
+        )
+
+        self.assertEqual(
+            result.cost,
+            1,
+        )
+
+        self.assertEqual(
+            result.moves,
+            ("LEFT",),
+        )
+
+        self.assertEqual(
+            result.path[-1],
+            custom_goal,
+        )
+
+class DFSTests(unittest.TestCase):
+
+    def test_goal_state_requires_zero_moves(self):
+        result = dfs(GOAL_STATE)
+
+        self.assertEqual(
+            result.cost,
+            0,
+        )
+
+        self.assertEqual(
+            result.moves,
+            (),
+        )
+
+        self.assertEqual(
+            result.path,
+            (GOAL_STATE,),
+        )
+
+        self.assertEqual(
+            result.expanded,
+            0,
+        )
+
+        self.assertEqual(
+            result.generated,
+            1,
+        )
+
+    def test_one_move_to_custom_goal(self):
+        start = GOAL_STATE
+
+        custom_goal = (
+            1, 2, 3,
+            4, 5, 0,
+            7, 8, 6,
+        )
+
+        result = dfs(
+            start,
+            custom_goal,
+        )
+
+        self.assertEqual(
+            result.cost,
+            1,
+        )
+
+        self.assertEqual(
+            result.moves,
+            ("UP",),
+        )
+
+        self.assertEqual(
+            result.path[0],
+            start,
+        )
+
+        self.assertEqual(
+            result.path[-1],
+            custom_goal,
+        )
+
+    def test_path_and_moves_are_consistent(self):
+        start = GOAL_STATE
+
+        custom_goal = (
+            1, 2, 3,
+            4, 5, 0,
+            7, 8, 6,
+        )
+
+        result = dfs(
+            start,
+            custom_goal,
+        )
+
+        current = start
+
+        for index, move in enumerate(
+            result.moves,
+            start=1,
+        ):
+            current = apply_move(
+                current,
+                move,
+            )
+
+            self.assertEqual(
+                current,
+                result.path[index],
+            )
+
+        self.assertEqual(
+            current,
+            custom_goal,
+        )
+
+    def test_unsolvable_goal_is_rejected(self):
+        unsolvable_goal = (
+            1, 2, 3,
+            4, 5, 6,
+            8, 7, 0,
+        )
+
+        with self.assertRaises(ValueError):
+            dfs(
+                GOAL_STATE,
+                unsolvable_goal,
+            )
+
 class AStarTests(unittest.TestCase):
 
     def test_goal_state_requires_zero_moves(self):
@@ -307,6 +447,34 @@ class AStarTests(unittest.TestCase):
                     manhattan_result.cost,
                     optimal,
                 )
+
+    def test_custom_goal(self):
+        custom_goal = (
+            1, 2, 3,
+            4, 5, 6,
+            7, 0, 8,
+        )
+
+        result = astar(
+            GOAL_STATE,
+            custom_goal,
+            heuristic=manhattan_distance,
+        )
+
+        self.assertEqual(
+            result.cost,
+            1,
+        )
+
+        self.assertEqual(
+            result.moves,
+            ("LEFT",),
+        )
+
+        self.assertEqual(
+            result.path[-1],
+            custom_goal,
+        )
 
     def test_heuristics_are_admissible_on_sample_states(self):
         for seed in range(5):

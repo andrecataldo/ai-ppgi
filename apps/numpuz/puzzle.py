@@ -118,11 +118,15 @@ def neighbors(state: State) -> tuple[tuple[Move, State], ...]:
     )
 
 
-def is_goal(state: State) -> bool:
-    """Return True when the state is the canonical goal state."""
+def is_goal(
+    state: State,
+    goal: State = GOAL_STATE,
+) -> bool:
+    """Return True when state matches the requested goal state."""
     validate_state(state)
+    validate_state(goal)
 
-    return state == GOAL_STATE
+    return state == goal
 
 
 def inversion_count(state: State) -> int:

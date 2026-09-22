@@ -99,6 +99,46 @@ class HeuristicTests(unittest.TestCase):
             misplaced_tiles,
         )
 
+    def test_heuristics_use_custom_goal(self):
+        custom_goal = (
+            1, 2, 3,
+            4, 5, 6,
+            7, 0, 8,
+        )
+
+        state = GOAL_STATE
+
+        self.assertEqual(
+            misplaced_tiles(
+                state,
+                custom_goal,
+            ),
+            1,
+        )
+
+        self.assertEqual(
+            manhattan_distance(
+                state,
+                custom_goal,
+            ),
+            1,
+        )
+
+        self.assertEqual(
+            misplaced_tiles(
+                custom_goal,
+                custom_goal,
+            ),
+            0,
+        )
+
+        self.assertEqual(
+            manhattan_distance(
+                custom_goal,
+                custom_goal,
+            ),
+            0,
+        )
 
 if __name__ == "__main__":
     unittest.main()

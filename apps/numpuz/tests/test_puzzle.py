@@ -18,6 +18,48 @@ class PuzzleTests(unittest.TestCase):
     def test_goal_state_is_recognized(self):
         self.assertTrue(is_goal(GOAL_STATE))
 
+
+    def test_custom_goal_is_recognized(self):
+        custom_goal = (
+            1, 2, 3,
+            4, 5, 6,
+            7, 0, 8,
+        )
+
+        self.assertTrue(
+            is_goal(
+                custom_goal,
+                custom_goal,
+            )
+        )
+
+        self.assertFalse(
+            is_goal(
+                GOAL_STATE,
+                custom_goal,
+            )
+        )
+
+    def test_shuffle_from_custom_goal_is_reachable(self):
+        custom_goal = (
+            1, 2, 3,
+            4, 5, 6,
+            7, 0, 8,
+        )
+
+        initial = shuffle_state(
+            moves=20,
+            seed=42,
+            start=custom_goal,
+        )
+
+        self.assertTrue(
+            is_solvable(
+                initial,
+                custom_goal,
+            )
+        )
+    
     def test_blank_position_on_goal(self):
         self.assertEqual(
             blank_position(GOAL_STATE),
