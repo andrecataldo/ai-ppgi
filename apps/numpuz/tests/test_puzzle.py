@@ -8,6 +8,7 @@ from puzzle import (
     is_goal,
     is_solvable,
     neighbors,
+    parse_state,
     shuffle_state,
     valid_moves,
 )
@@ -18,6 +19,48 @@ class PuzzleTests(unittest.TestCase):
     def test_goal_state_is_recognized(self):
         self.assertTrue(is_goal(GOAL_STATE))
 
+
+    def test_custom_goal_is_recognized(self):
+        custom_goal = (
+            1, 2, 3,
+            4, 5, 6,
+            7, 0, 8,
+        )
+
+        self.assertTrue(
+            is_goal(
+                custom_goal,
+                custom_goal,
+            )
+        )
+
+        self.assertFalse(
+            is_goal(
+                GOAL_STATE,
+                custom_goal,
+            )
+        )
+
+    def test_shuffle_from_custom_goal_is_reachable(self):
+        custom_goal = (
+            1, 2, 3,
+            4, 5, 6,
+            7, 0, 8,
+        )
+
+        initial = shuffle_state(
+            moves=20,
+            seed=42,
+            start=custom_goal,
+        )
+
+        self.assertTrue(
+            is_solvable(
+                initial,
+                custom_goal,
+            )
+        )
+    
     def test_blank_position_on_goal(self):
         self.assertEqual(
             blank_position(GOAL_STATE),
@@ -134,7 +177,76 @@ class PuzzleTests(unittest.TestCase):
             ),
             GOAL_STATE,
         )
+        
+    def test_parse_state_with_commas(self):
+        result = parse_state(
+            "1,2,3,4,5,6,7,_,8"
+        )
 
+        self.assertEqual(
+            result,
+            (
+                1, 2, 3,
+                4, 5, 6,
+                7, 0, 8,
+            ),
+        )
+
+    def test_parse_state_with_compact_rows(self):
+        result = parse_state(
+            "123/456/78_"
+        )
+
+        self.assertEqual(
+            result,
+            GOAL_STATE,
+        )
+
+    def test_parse_state_with_multiline_board(self):
+        result = parse_state(
+            """
+            1 2 3
+            4 5 6
+            7 _ 8
+            """
+        )
+
+        self.assertEqual(
+            result,
+            (
+                1, 2, 3,
+                4, 5, 6,
+                7, 0, 8,
+            ),
+        )
+
+    def test_parse_state_accepts_zero_as_blank(self):
+        result = parse_state(
+            "1,2,3,4,5,6,7,8,0"
+        )
+
+        self.assertEqual(
+            result,
+            GOAL_STATE,
+        )
+
+    def test_parse_state_rejects_missing_position(self):
+        with self.assertRaises(ValueError):
+            parse_state(
+                "1,2,3,4,5,6,7,_"
+            )
+
+    def test_parse_state_rejects_duplicate_tiles(self):
+        with self.assertRaises(ValueError):
+            parse_state(
+                "1,2,3,4,5,6,7,7,_"
+            )
+
+    def test_parse_state_rejects_invalid_character(self):
+        with self.assertRaises(ValueError):
+            parse_state(
+                "1,2,3,4,5,6,7,X,_"
+            )
 
 if __name__ == "__main__":
     unittest.main()

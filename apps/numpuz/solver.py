@@ -145,6 +145,91 @@ def bfs(
         "A busca terminou sem encontrar o estado objetivo."
     )
 
+def dfs(
+    start: State,
+    goal: State = GOAL_STATE,
+) -> SearchResult:
+    """Solve a NUMPUZ instance using Depth-First Search.
+
+    DFS explores one branch as deeply as possible before
+    backtracking.
+
+    Unlike BFS and A* with admissible heuristics, DFS does not
+    guarantee an optimal solution in number of movements.
+
+    Successors are pushed onto the stack in reverse order so that
+    the effective exploration order remains:
+
+        UP, DOWN, LEFT, RIGHT
+    """
+    validate_state(start)
+    validate_state(goal)
+
+    if not is_solvable(start, goal):
+        raise ValueError(
+            "O estado inicial não possui solução para o objetivo informado."
+        )
+
+    started_at = perf_counter()
+
+    frontier: list[State] = [start]
+
+    discovered: set[State] = {
+        start,
+    }
+
+    parents: dict[State, ParentInfo] = {
+        start: None,
+    }
+
+    expanded = 0
+    generated = 1
+
+    while frontier:
+        current = frontier.pop()
+
+        if current == goal:
+            path, moves = reconstruct_path(
+                parents,
+                current,
+            )
+
+            elapsed = perf_counter() - started_at
+
+            return SearchResult(
+                algorithm="Depth-First Search (DFS)",
+                path=path,
+                moves=moves,
+                cost=len(moves),
+                expanded=expanded,
+                generated=generated,
+                elapsed_seconds=elapsed,
+            )
+
+        expanded += 1
+
+        successors = neighbors(current)
+
+        # A pilha é LIFO. Inserimos em ordem reversa para que
+        # a exploração efetiva siga UP, DOWN, LEFT, RIGHT.
+        for move, successor in reversed(successors):
+            if successor in discovered:
+                continue
+
+            discovered.add(successor)
+
+            parents[successor] = (
+                current,
+                move,
+            )
+
+            frontier.append(successor)
+
+            generated += 1
+
+    raise RuntimeError(
+        "A busca terminou sem encontrar o estado objetivo."
+    )
 
 def astar(
     start: State,
