@@ -8,6 +8,7 @@ from puzzle import (
     is_goal,
     is_solvable,
     neighbors,
+    parse_state,
     shuffle_state,
     valid_moves,
 )
@@ -176,7 +177,76 @@ class PuzzleTests(unittest.TestCase):
             ),
             GOAL_STATE,
         )
+        
+    def test_parse_state_with_commas(self):
+        result = parse_state(
+            "1,2,3,4,5,6,7,_,8"
+        )
 
+        self.assertEqual(
+            result,
+            (
+                1, 2, 3,
+                4, 5, 6,
+                7, 0, 8,
+            ),
+        )
+
+    def test_parse_state_with_compact_rows(self):
+        result = parse_state(
+            "123/456/78_"
+        )
+
+        self.assertEqual(
+            result,
+            GOAL_STATE,
+        )
+
+    def test_parse_state_with_multiline_board(self):
+        result = parse_state(
+            """
+            1 2 3
+            4 5 6
+            7 _ 8
+            """
+        )
+
+        self.assertEqual(
+            result,
+            (
+                1, 2, 3,
+                4, 5, 6,
+                7, 0, 8,
+            ),
+        )
+
+    def test_parse_state_accepts_zero_as_blank(self):
+        result = parse_state(
+            "1,2,3,4,5,6,7,8,0"
+        )
+
+        self.assertEqual(
+            result,
+            GOAL_STATE,
+        )
+
+    def test_parse_state_rejects_missing_position(self):
+        with self.assertRaises(ValueError):
+            parse_state(
+                "1,2,3,4,5,6,7,_"
+            )
+
+    def test_parse_state_rejects_duplicate_tiles(self):
+        with self.assertRaises(ValueError):
+            parse_state(
+                "1,2,3,4,5,6,7,7,_"
+            )
+
+    def test_parse_state_rejects_invalid_character(self):
+        with self.assertRaises(ValueError):
+            parse_state(
+                "1,2,3,4,5,6,7,X,_"
+            )
 
 if __name__ == "__main__":
     unittest.main()

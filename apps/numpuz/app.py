@@ -9,6 +9,7 @@ Execute:
 from __future__ import annotations
 
 import streamlit as st
+
 from heuristics import (
     HEURISTICS,
     manhattan_distance,
@@ -22,9 +23,17 @@ from puzzle import (
     State,
     apply_move,
     is_goal,
+    is_solvable,
+    parse_state,
     shuffle_state,
 )
-from solver import SearchResult, astar, bfs
+from solver import (
+    SearchResult,
+    astar,
+    bfs,
+    dfs,
+)
+
 
 # ================================================================
 # CONFIGURAÇÃO
@@ -50,7 +59,7 @@ MOVE_LABELS: dict[Move, str] = {
 # ================================================================
 
 def clear_solution() -> None:
-    """Remove search results associated with the current board."""
+    """Remove search results associated with the current problem."""
     st.session_state.search_result = None
     st.session_state.solution_index = 0
     st.session_state.search_algorithm = None
@@ -60,10 +69,14 @@ def clear_solution() -> None:
 
 def initialize_session() -> None:
     """Initialize Streamlit state once."""
+    if "goal_state" not in st.session_state:
+        st.session_state.goal_state = GOAL_STATE
+
     if "initial_state" not in st.session_state:
         initial = shuffle_state(
             moves=20,
             seed=42,
+            start=st.session_state.goal_state,
         )
 
         st.session_state.initial_state = initial
@@ -75,6 +88,37 @@ def initialize_session() -> None:
 
 
 initialize_session()
+
+
+# ================================================================
+# DEFINIÇÃO DO PROBLEMA
+# ================================================================
+
+def set_problem(
+    initial: State,
+    goal: State,
+) -> None:
+    """Set a new I -> S search problem."""
+    if not is_solvable(initial, goal):
+        raise ValueError(
+            "O estado inicial I não pode alcançar "
+            "o estado objetivo S informado."
+        )
+
+    st.session_state.initial_state = initial
+    st.session_state.goal_state = goal
+    st.session_state.board = initial
+    st.session_state.manual_moves = 0
+
+    clear_solution()
+
+
+def reset_game() -> None:
+    """Restore the configured initial state I."""
+    st.session_state.board = st.session_state.initial_state
+    st.session_state.manual_moves = 0
+
+    clear_solution()
 
 
 # ================================================================
@@ -168,7 +212,11 @@ def render_board(
                     key=f"{key_prefix}_{index}",
                     use_container_width=True,
                     disabled=not enabled,
-                    type="primary" if enabled else "secondary",
+                    type=(
+                        "primary"
+                        if enabled
+                        else "secondary"
+                    ),
                 )
 
                 if clicked and move is not None:
@@ -176,45 +224,34 @@ def render_board(
                     st.rerun()
 
 
-def new_game(
-    shuffle_moves: int,
-    seed: int | None,
-) -> None:
-    """Generate and start a new solvable puzzle."""
-    initial = shuffle_state(
-        moves=shuffle_moves,
-        seed=seed,
-    )
+# ================================================================
+# BUSCAS
+# ================================================================
 
-    st.session_state.initial_state = initial
-    st.session_state.board = initial
-    st.session_state.manual_moves = 0
-
-    clear_solution()
-
-
-def reset_game() -> None:
-    """Restore the original puzzle state."""
-    st.session_state.board = (
-        st.session_state.initial_state
-    )
-
-    st.session_state.manual_moves = 0
-
-    clear_solution()
-
-
-def solve_current_state(
+def solve_problem(
     algorithm: str,
     heuristic_name: str,
 ) -> None:
-    """Run the selected search algorithm."""
-    state = st.session_state.board
+    """Run a search algorithm from configured I to configured S."""
+    initial = st.session_state.initial_state
+    goal = st.session_state.goal_state
 
     if algorithm == "BFS":
-        result = bfs(state)
+        result = bfs(
+            initial,
+            goal,
+        )
 
         st.session_state.search_algorithm = "BFS"
+        st.session_state.search_heuristic = None
+
+    elif algorithm == "DFS":
+        result = dfs(
+            initial,
+            goal,
+        )
+
+        st.session_state.search_algorithm = "DFS"
         st.session_state.search_heuristic = None
 
     else:
@@ -223,7 +260,8 @@ def solve_current_state(
         ]
 
         result = astar(
-            state,
+            initial,
+            goal,
             heuristic=heuristic,
         )
 
@@ -233,28 +271,45 @@ def solve_current_state(
     st.session_state.search_result = result
     st.session_state.solution_index = 0
 
-def compare_search_strategies() -> None:
-    """Run all search strategies over exactly the same current state."""
-    state = st.session_state.board
 
-    bfs_result = bfs(state)
+def compare_search_strategies() -> None:
+    """Run all strategies over exactly the same I -> S problem."""
+    initial = st.session_state.initial_state
+    goal = st.session_state.goal_state
+
+    bfs_result = bfs(
+        initial,
+        goal,
+    )
+
+    dfs_result = dfs(
+        initial,
+        goal,
+    )
 
     misplaced_result = astar(
-        state,
+        initial,
+        goal,
         heuristic=misplaced_tiles,
     )
 
     manhattan_result = astar(
-        state,
+        initial,
+        goal,
         heuristic=manhattan_distance,
     )
 
     st.session_state.comparison_results = {
         "BFS": bfs_result,
+        "DFS": dfs_result,
         "A* + Misplaced Tiles": misplaced_result,
         "A* + Manhattan Distance": manhattan_result,
     }
 
+
+# ================================================================
+# APRESENTAÇÃO DOS RESULTADOS
+# ================================================================
 
 def show_comparison() -> None:
     """Display the comparison between search strategies."""
@@ -285,30 +340,50 @@ def show_comparison() -> None:
         use_container_width=True,
     )
 
-    costs = {
-        result.cost
-        for result in results.values()
-    }
+    bfs_cost = results["BFS"].cost
 
-    if len(costs) == 1:
+    misplaced_cost = results[
+        "A* + Misplaced Tiles"
+    ].cost
+
+    manhattan_cost = results[
+        "A* + Manhattan Distance"
+    ].cost
+
+    if (
+        bfs_cost
+        == misplaced_cost
+        == manhattan_cost
+    ):
         st.success(
-            "✅ As três estratégias encontraram "
+            "✅ BFS e as duas configurações de A* "
+            "encontraram uma solução com o mesmo custo ótimo."
+        )
+
+    dfs_cost = results["DFS"].cost
+
+    if dfs_cost == bfs_cost:
+        st.info(
+            "ℹ️ Neste caso, o DFS também encontrou "
             "uma solução com o mesmo custo."
         )
     else:
-        st.warning(
-            "⚠️ As estratégias retornaram soluções "
-            "com custos diferentes."
+        st.info(
+            "ℹ️ O DFS encontrou uma solução com custo "
+            f"{dfs_cost}, enquanto o custo ótimo observado "
+            f"foi {bfs_cost}. Isso é esperado: DFS não "
+            "garante a solução de menor profundidade."
         )
 
-    best_name, best_result = min(
+    fewest_name, fewest_result = min(
         results.items(),
         key=lambda item: item[1].expanded,
     )
 
     st.info(
-        f"🏆 **Menor número de estados expandidos:** "
-        f"{best_name} - {best_result.expanded:,} estados."
+        "📌 **Menor número de estados expandidos neste "
+        f"experimento:** {fewest_name} - "
+        f"{fewest_result.expanded:,} estados."
     )
 
     bfs_result = results["BFS"]
@@ -330,6 +405,7 @@ def show_comparison() -> None:
             f"{reduction:.2f}%",
         )
 
+
 def show_search_metrics(
     result: SearchResult,
 ) -> None:
@@ -339,7 +415,7 @@ def show_search_metrics(
     col1.metric(
         "Custo",
         result.cost,
-        help="Quantidade de movimentos da solução.",
+        help="Quantidade de movimentos da solução encontrada.",
     )
 
     col2.metric(
@@ -367,8 +443,9 @@ def show_search_state_analysis(
     state: State,
     step: int,
 ) -> None:
-    """Explain the search evaluation for the displayed state."""
+    """Explain how the selected strategy evaluates the state."""
     algorithm = st.session_state.search_algorithm
+    goal = st.session_state.goal_state
 
     with st.expander(
         "🔎 Como a busca avalia este estado?"
@@ -376,19 +453,43 @@ def show_search_state_analysis(
         if algorithm == "BFS":
             st.markdown(
                 f"""
-**Algoritmo:** Breadth-First Search
-
-**Profundidade atual:**
+**Algoritmo:** Breadth-First Search (BFS)
 
 ```text
 g(n) = {step}
 ```
 
-Como cada movimento possui custo 1, a profundidade
-é também o custo acumulado até este estado.
+O BFS explora o espaço de estados em níveis crescentes
+de profundidade.
 
-O BFS não utiliza heurística: ele explora o espaço
-de estados em níveis crescentes de profundidade.
+Como cada movimento possui custo 1:
+
+```text
+profundidade = custo acumulado
+```
+
+O BFS não utiliza heurística.
+"""
+            )
+
+            return
+
+        if algorithm == "DFS":
+            st.markdown(
+                f"""
+**Algoritmo:** Depth-First Search (DFS)
+
+**Profundidade do estado no caminho encontrado:**
+
+```text
+g(n) = {step}
+```
+
+O DFS explora um ramo em profundidade antes de retornar
+para explorar alternativas.
+
+Ele não utiliza heurística e não garante encontrar a
+solução com o menor número de movimentos.
 """
             )
 
@@ -403,10 +504,12 @@ de estados em níveis crescentes de profundidade.
         ]
 
         g = step
+
         h = heuristic(
             state,
-            GOAL_STATE,
+            goal,
         )
+
         f = g + h
 
         st.markdown(
@@ -423,8 +526,8 @@ f(n) = g(n) + h(n)
      = {f}
 ```
 
-- `g(n)` = custo já percorrido;
-- `h(n)` = estimativa do custo restante;
+- `g(n)` = custo já percorrido desde `I`;
+- `h(n)` = estimativa do custo restante até `S`;
 - `f(n)` = prioridade usada pelo A*.
 """
         )
@@ -487,7 +590,7 @@ def show_solution(
         )
     else:
         st.success(
-            "🎯 Estado objetivo alcançado."
+            "🎯 Estado objetivo S alcançado."
         )
 
     show_search_state_analysis(
@@ -509,74 +612,191 @@ st.caption(
 
 st.markdown(
     """
-Resolva o puzzle manualmente ou utilize algoritmos de
-**busca não informada (BFS)** e **busca informada (A\\*)**
-para encontrar automaticamente uma solução ótima.
+Defina um **estado inicial I** e um **estado objetivo S**.
+
+O mesmo problema `I → S` pode ser resolvido utilizando:
+
+- **BFS**;
+- **DFS**;
+- **A\\* + Misplaced Tiles**;
+- **A\\* + Manhattan Distance**.
 """
 )
 
 
 # ================================================================
-# NOVO JOGO
+# DEFINIÇÃO DO PROBLEMA I -> S
 # ================================================================
 
 with st.expander(
-    "⚙️ Configuração do puzzle",
-    expanded=False,
+    "⚙️ Definição do problema de busca — I → S",
+    expanded=True,
 ):
-    shuffle_moves = st.slider(
-        "Intensidade de embaralhamento",
-        min_value=2,
-        max_value=30,
-        value=20,
-        step=1,
-        help=(
-            "Quantidade de movimentos aleatórios "
-            "executados a partir do estado objetivo. "
-            "Não representa necessariamente a "
-            "distância ótima até a solução."
-        ),
+    st.markdown("### 🎯 Estado objetivo — S")
+
+    goal_mode = st.radio(
+        "Como definir S?",
+        options=[
+            "Solução canônica",
+            "Informar manualmente",
+        ],
+        horizontal=True,
+        key="goal_mode",
     )
 
-    reproducible = st.checkbox(
-        "Usar seed reproduzível",
-        value=True,
-    )
+    custom_goal_text = None
 
-    seed = None
-
-    if reproducible:
-        seed = int(
-            st.number_input(
-                "Seed",
-                min_value=0,
-                value=42,
-                step=1,
-            )
+    if goal_mode == "Informar manualmente":
+        custom_goal_text = st.text_input(
+            "Configuração de S",
+            value="123/456/78_",
+            help=(
+                "Use os números de 1 a 8 e '_' para o vazio. "
+                "Exemplo: 123/456/78_"
+            ),
+            key="custom_goal_text",
         )
 
-    col_new, col_reset = st.columns(2)
+    else:
+        st.code(
+            "1 2 3\n4 5 6\n7 8 _",
+            language="text",
+        )
 
-    with col_new:
-        if st.button(
-            "🎲 Novo puzzle",
-            type="primary",
-            use_container_width=True,
-        ):
-            new_game(
-                shuffle_moves,
-                seed,
+    st.markdown("### 🚩 Estado inicial — I")
+
+    initial_mode = st.radio(
+        "Como definir I?",
+        options=[
+            "Gerar aleatoriamente",
+            "Informar manualmente",
+        ],
+        horizontal=True,
+        key="initial_mode",
+    )
+
+    shuffle_moves = 20
+    seed: int | None = 42
+    custom_initial_text = None
+
+    if initial_mode == "Gerar aleatoriamente":
+        shuffle_moves = st.slider(
+            "Intensidade de embaralhamento",
+            min_value=1,
+            max_value=30,
+            value=20,
+            step=1,
+            help=(
+                "Número de movimentos aleatórios executados "
+                "a partir de S para produzir I. Não representa "
+                "necessariamente a distância ótima entre I e S."
+            ),
+            key="shuffle_moves",
+        )
+
+        reproducible = st.checkbox(
+            "Usar seed reproduzível",
+            value=True,
+            key="reproducible",
+        )
+
+        if reproducible:
+            seed = int(
+                st.number_input(
+                    "Seed",
+                    min_value=0,
+                    value=42,
+                    step=1,
+                    key="seed",
+                )
+            )
+
+        else:
+            seed = None
+
+    else:
+        custom_initial_text = st.text_input(
+            "Configuração de I",
+            value="123/456/7_8",
+            help=(
+                "Use os números de 1 a 8 e '_' para o vazio. "
+                "Exemplo: 123/456/7_8"
+            ),
+            key="custom_initial_text",
+        )
+
+    if st.button(
+        "✅ Aplicar problema I → S",
+        type="primary",
+        use_container_width=True,
+        key="apply_problem",
+    ):
+        try:
+            if goal_mode == "Solução canônica":
+                goal = GOAL_STATE
+
+            else:
+                goal = parse_state(
+                    custom_goal_text
+                )
+
+            if initial_mode == "Gerar aleatoriamente":
+                initial = shuffle_state(
+                    moves=shuffle_moves,
+                    seed=seed,
+                    start=goal,
+                )
+
+            else:
+                initial = parse_state(
+                    custom_initial_text
+                )
+
+            set_problem(
+                initial,
+                goal,
             )
 
             st.rerun()
 
-    with col_reset:
-        if st.button(
-            "↩️ Reiniciar",
-            use_container_width=True,
-        ):
-            reset_game()
-            st.rerun()
+        except ValueError as exc:
+            st.error(str(exc))
+
+# ================================================================
+# PROBLEMA ATUAL
+# ================================================================
+
+st.divider()
+
+st.subheader("🧭 Problema atual")
+
+initial_col, goal_col = st.columns(2)
+
+with initial_col:
+    st.markdown("#### Estado inicial — I")
+
+    render_board(
+        st.session_state.initial_state,
+        interactive=False,
+        key_prefix="problem_initial",
+    )
+
+with goal_col:
+    st.markdown("#### Estado objetivo — S")
+
+    render_board(
+        st.session_state.goal_state,
+        interactive=False,
+        key_prefix="problem_goal",
+    )
+
+if is_solvable(
+    st.session_state.initial_state,
+    st.session_state.goal_state,
+):
+    st.success(
+        "✅ I e S pertencem ao mesmo espaço alcançável."
+    )
 
 
 # ================================================================
@@ -585,16 +805,18 @@ with st.expander(
 
 st.divider()
 
-st.subheader("🎮 Jogo manual")
+st.subheader("🎮 Exploração manual")
 
 st.caption(
-    "Clique em uma peça adjacente ao espaço vazio."
+    "Clique em uma peça adjacente ao espaço vazio. "
+    "O objetivo é transformar I em S."
 )
 
 render_board(
     st.session_state.board,
     interactive=not is_goal(
-        st.session_state.board
+        st.session_state.board,
+        st.session_state.goal_state,
     ),
     key_prefix="manual",
 )
@@ -607,18 +829,27 @@ metric_col1.metric(
 )
 
 metric_col2.metric(
-    "Manhattan atual",
+    "Manhattan até S",
     manhattan_distance(
-        st.session_state.board
+        st.session_state.board,
+        st.session_state.goal_state,
     ),
 )
 
 if is_goal(
-    st.session_state.board
+    st.session_state.board,
+    st.session_state.goal_state,
 ):
     st.success(
-        "🎉 Puzzle resolvido!"
+        "🎉 Estado objetivo S alcançado!"
     )
+
+if st.button(
+    "↩️ Reiniciar exploração em I",
+    use_container_width=True,
+):
+    reset_game()
+    st.rerun()
 
 
 # ================================================================
@@ -627,47 +858,58 @@ if is_goal(
 
 st.divider()
 
-st.subheader("🤖 Resolver com busca")
+st.subheader("🤖 Resolver I → S com busca")
 
 algorithm = st.selectbox(
     "Algoritmo",
     options=[
-        "A*",
         "BFS",
+        "DFS",
+        "A*",
     ],
 )
 
 heuristic_name = st.selectbox(
-    "Heurística",
+    "Heurística do A*",
     options=list(
         HEURISTICS.keys()
     ),
-    disabled=algorithm == "BFS",
-    help="BFS não utiliza função heurística.",
+    disabled=algorithm != "A*",
+    help=(
+        "BFS e DFS são buscas não informadas e "
+        "não utilizam função heurística."
+    ),
 )
 
 if algorithm == "BFS":
     st.caption(
-        "BFS explora o espaço por profundidade. "
-        "Como todos os movimentos custam 1, "
-        "a solução encontrada é ótima."
+        "BFS explora o espaço por níveis. Como todos "
+        "os movimentos custam 1, encontra uma solução "
+        "ótima em número de movimentos."
+    )
+
+elif algorithm == "DFS":
+    st.caption(
+        "DFS explora um ramo em profundidade antes de "
+        "retroceder. Não garante a solução de menor custo."
     )
 
 elif heuristic_name == "Manhattan Distance":
     st.caption(
-        "Manhattan soma as distâncias horizontais "
-        "e verticais de cada peça até seu objetivo."
+        "A* + Manhattan soma as distâncias horizontais "
+        "e verticais de cada peça até sua posição em S."
     )
 
 else:
     st.caption(
-        "Misplaced Tiles conta quantas peças "
-        "estão fora de sua posição objetivo."
+        "A* + Misplaced Tiles conta quantas peças "
+        "estão fora de sua posição em S."
     )
 
 st.info(
-    "A busca será executada a partir do estado atual do tabuleiro. "
-    "Movimentos feitos manualmente antes da busca serão considerados."
+    "Todas as buscas automáticas partem do mesmo estado "
+    "inicial I configurado acima e procuram o mesmo "
+    "estado objetivo S."
 )
 
 if st.button(
@@ -677,9 +919,9 @@ if st.button(
 ):
     try:
         with st.spinner(
-            f"Executando {algorithm}..."
+            f"Executando {algorithm} de I até S..."
         ):
-            solve_current_state(
+            solve_problem(
                 algorithm,
                 heuristic_name,
             )
@@ -706,13 +948,14 @@ if result is not None:
     show_search_metrics(result)
 
     st.markdown(
-        "### 🧭 Caminho da solução"
+        "### 🧭 Caminho I → S"
     )
 
     show_solution(result)
 
+
 # ================================================================
-# COMPARAÇÃO DOS ALGORITMOS
+# COMPARAÇÃO DAS ESTRATÉGIAS
 # ================================================================
 
 st.divider()
@@ -721,12 +964,16 @@ st.subheader("⚖️ Comparar estratégias")
 
 st.markdown(
     """
-Execute **BFS**, **A\\* + Misplaced Tiles** e
-**A\\* + Manhattan Distance** sobre exatamente o mesmo
-estado atual do puzzle.
+Execute as quatro estratégias sobre **exatamente o mesmo
+estado inicial I e o mesmo estado objetivo S**:
 
-Assim podemos comparar a eficiência das estratégias sem
-alterar o problema de busca.
+- BFS;
+- DFS;
+- A\\* + Misplaced Tiles;
+- A\\* + Manhattan Distance.
+
+Assim é possível observar como diferentes estratégias
+visitam o espaço de estados para resolver o mesmo problema.
 """
 )
 
@@ -736,7 +983,8 @@ if st.button(
 ):
     try:
         with st.spinner(
-            "Executando BFS e as duas configurações de A*..."
+            "Executando BFS, DFS e as duas "
+            "configurações de A*..."
         ):
             compare_search_strategies()
 
@@ -745,6 +993,7 @@ if st.button(
 
 
 show_comparison()
+
 
 # ================================================================
 # FUNDAMENTAÇÃO
@@ -759,22 +1008,49 @@ with st.expander(
         """
 | Elemento | NUMPUZ |
 |---|---|
-| **Estado** | configuração das 8 peças + espaço vazio |
-| **Estado inicial** | puzzle embaralhado e solucionável |
+| **Estado** | configuração das 8 peças e do espaço vazio |
+| **Estado inicial I** | configuração informada pelo usuário ou gerada aleatoriamente |
+| **Estado objetivo S** | solução canônica ou configuração válida informada pelo usuário |
 | **Ações** | mover o vazio para cima, baixo, esquerda ou direita |
 | **Função sucessora** | troca o vazio com uma peça adjacente |
-| **Teste objetivo** | `(1,2,3,4,5,6,7,8,0)` |
+| **Teste objetivo** | `estado_atual == S` |
 | **Custo** | `1` por movimento |
-| **BFS** | busca não informada |
+| **BFS** | busca não informada em largura |
+| **DFS** | busca não informada em profundidade |
 | **A\\*** | busca informada: `f(n) = g(n) + h(n)` |
-| **Heurísticas** | Misplaced Tiles e Manhattan Distance |
+| **Heurísticas** | Misplaced Tiles e Manhattan Distance calculadas em relação a S |
 """
     )
 
     st.markdown(
         """
-O puzzle é sempre gerado por uma sequência de movimentos
-válidos a partir do estado objetivo. Portanto, toda configuração
-gerada pela aplicação possui solução.
+Quando o estado inicial é gerado aleatoriamente, a aplicação
+parte do próprio estado objetivo `S` e executa uma sequência
+de movimentos válidos:
+
+```text
+S
+↓
+movimento válido
+↓
+movimento válido
+↓
+...
+↓
+I
+```
+
+Dessa forma, o estado `I` gerado é garantidamente alcançável
+a partir de `S` e vice-versa.
+
+Durante cada algoritmo de busca, os estados são explorados até
+que seja satisfeita a condição:
+
+```python
+estado_atual == S
+```
+
+O estado objetivo não precisa ser necessariamente a configuração
+canônica do 8-puzzle.
 """
     )

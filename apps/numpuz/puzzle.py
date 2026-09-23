@@ -44,6 +44,70 @@ def validate_state(state: State) -> None:
             f"{sorted(expected)}."
         )
 
+def parse_state(text: str) -> State:
+    """Parse a textual 8-puzzle configuration into a State.
+
+    Accepted examples:
+
+        1,2,3,4,5,6,7,_,8
+        123/456/7_8
+        1 2 3
+        4 5 6
+        7 _ 8
+
+    The blank position may be represented by "_" or "0".
+    """
+
+    if not isinstance(text, str) or not text.strip():
+        raise ValueError(
+            "Informe uma configuração para o tabuleiro."
+        )
+
+    separators = {
+        " ",
+        "\t",
+        "\n",
+        "\r",
+        ",",
+        "/",
+        ";",
+        "|",
+    }
+
+    symbols = [
+        character
+        for character in text
+        if character not in separators
+    ]
+
+    if len(symbols) != SIZE * SIZE:
+        raise ValueError(
+            f"Estado inválido: esperado {SIZE * SIZE} posições, "
+            f"recebido {len(symbols)}."
+        )
+
+    allowed = set("12345678_0")
+
+    invalid = [
+        symbol
+        for symbol in symbols
+        if symbol not in allowed
+    ]
+
+    if invalid:
+        raise ValueError(
+            "Estado inválido: utilize somente os números de 1 a 8 "
+            "e '_' ou 0 para representar o espaço vazio."
+        )
+
+    state: State = tuple(
+        BLANK if symbol == "_" else int(symbol)
+        for symbol in symbols
+    )
+
+    validate_state(state)
+
+    return state
 
 def blank_position(state: State) -> tuple[int, int]:
     """Return the row and column of the blank position."""
