@@ -33,4 +33,5 @@ data/raw/*
 *.exe
 *.hlp
 *.cnt
-*.tip
+*.tiplabs/aula-06-sistemas-recomendacao/tastelens/data/*.db
+/labs/aula-06-sistemas-recomendacao/tastelens/data/*.db

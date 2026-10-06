@@ -1,0 +1,9 @@
+streamlit>=1.45
+pandas>=2.2
+numpy>=2.0
+plotly>=6.0
+networkx>=3.4
+streamlit-autorefresh>=1.0.1
+qrcode[pil]>=8.0
+pytest>=8.0
+ruff>=0.8
