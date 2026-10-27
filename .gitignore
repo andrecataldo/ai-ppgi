@@ -1,37 +1,88 @@
+# ============================================================
 # Python
+# ============================================================
+
 __pycache__/
 *.py[cod]
 *.egg-info/
 
-# Virtual environment
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+
+# ============================================================
+# Virtual environments
+# ============================================================
+
 .venv/
 venv/
 
+
+# ============================================================
 # Jupyter
+# ============================================================
+
 .ipynb_checkpoints/
 
-# IDE
+
+# ============================================================
+# IDE / Editors
+# ============================================================
+
 .vscode/
 .idea/
 
-# OS
+
+# ============================================================
+# Operating system
+# ============================================================
+
 .DS_Store
 Thumbs.db
 
+
+# ============================================================
 # Logs
+# ============================================================
+
 *.log
 
-# Temporary
+
+# ============================================================
+# Temporary / backup files
+# ============================================================
+
 *.tmp
 *.bak
 
-# Local datasets
-data/raw/*
-!data/raw/.gitkeep
 
+# ============================================================
 # Legacy / binary tools
+# ============================================================
+
 *.exe
 *.hlp
 *.cnt
-*.tiplabs/aula-06-sistemas-recomendacao/tastelens/data/*.db
+*.tip
+
+
+# ============================================================
+# Aula 06 - Sistemas de Recomendação / TasteLens
+# ============================================================
+
 /labs/aula-06-sistemas-recomendacao/tastelens/data/*.db
+
+
+# ============================================================
+# Aula 07 - Deep Learning Ablation Lab
+# ============================================================
+
+# CIFAR-10 baixado localmente
+/labs/aula-07-deep-learning-ablation-lab/data/
+
+# Checkpoints, métricas e gráficos gerados pelo treinamento
+/labs/aula-07-deep-learning-ablation-lab/results/
+
+# Backup dos resultados do smoke test de 2 épocas
+/labs/aula-07-deep-learning-ablation-lab/results_quick_2ep/
