@@ -1,0 +1,6 @@
+# Artefatos gerados; reproduzíveis por lab.py
+results/
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
