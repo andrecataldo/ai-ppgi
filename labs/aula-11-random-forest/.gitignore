@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+*.pyc
+# Dataset original utilizado no experimento acadêmico
+!data/Exp2.csv
+# Artefatos de execução podem ser regenerados.
+results/*.csv
+results/*.png
+results/*.json
+results/RELATORIO_RESULTADOS.md
