@@ -1,11 +1,22 @@
-# LAB 11 — Human–AI Judgment Bias
+# LAB 11 - Human-AI Judgment Bias
 ## Árvores de Decisão, Random Forest e XGBoost em julgamentos humanos
 
-**UNIRIO — PPGI | Disciplina: Inteligência Artificial | Aula 11 (03/11/2026)**
+**UNIRIO - PPGI | Disciplina: Inteligência Artificial | Aula 11 (03/11/2026)**
 
 > **Pergunta de pesquisa:** o histórico de exposição a recomendações algorítmicas melhora a capacidade de modelos de árvores de prever desvios em estimativas humanas independentes?
 
 Este laboratório usa o **Experimento 2 (RDK)** de Glickman & Sharot: decisões de 120 participantes em quatro condições (baseline sem IA; algoritmo preciso, enviesado e ruidoso), 30 tentativas por condição e 14.400 observações. **Não é um conjunto de dados sobre LLMs.**
+
+> 📘 **Manual de Uso - LAB 11**
+>
+> Para instalar o ambiente, executar os testes e experimentos,
+> utilizar o notebook Jupyter, explorar o painel Streamlit e
+> interpretar os resultados, consulte o
+> **[Manual de Uso do Laboratório](docs/MANUAL_DE_USO.md)**.
+>
+> O manual apresenta um passo a passo para reproduzir
+> os experimentos e facilitar a avaliação acadêmica.
+
 
 ## 1. O que o laboratório ensina
 
@@ -22,7 +33,7 @@ Este laboratório usa o **Experimento 2 (RDK)** de Glickman & Sharot: decisões 
 Arquivo: `data/Exp2.csv` (incluído neste ZIP para execução local; excluído do Git por padrão).
 
 - Fonte: https://github.com/affective-brain-lab/BiasedHumanAI/tree/main/Exp2/Data
-- Artigo: Glickman & Sharot, *Nature Human Behaviour* 9, 345–359 (2025); online em 18/12/2024.
+- Artigo: Glickman & Sharot, *Nature Human Behaviour* 9, 345-359 (2025); online em 18/12/2024.
 - DOI: https://doi.org/10.1038/s41562-024-02077-2
 - SHA-256: `ec2207efc6fa936031107376857d48310990874d200de39c2880945ace574277`.
 - O hash Git blob coincide com o repositório dos autores.
@@ -123,7 +134,6 @@ labs/aula-11-random-forest/  # no repositório: labs/aula-11-random-forest/
 
 ```bash
 cd ~/projects/ai-ppgi
-# Extraia o ZIP no diretório raiz: a pasta interna começa em labs/
 cd labs/aula-11-random-forest
 
 python3 -m venv .venv
@@ -176,27 +186,10 @@ Baseline sem desvio: **MAE 14,176**. Melhor R² histórico: **0,229**, XGBoost; 
 
 **Interpretação não permitida:** estes modelos provam que determinada resposta da IA *causou* uma mudança individual; a medida de importância explica causalmente o viés; um ML já classifica participantes como "enviesados".
 
-## 9. Etapas sugeridas para a entrega
+## 9. Referências
 
-1. **Descreva** desenho do experimento e variável-alvo sem confundir respostas pré/pós-conselho.
-2. **Explore** o CSV; valide ausência estrutural em `collaboration` e sequência de condições.
-3. **Execute** modelos de referência, árvore, RF e XGBoost em dois cenários.
-4. **Compare** MAE, RMSE, R², CV agrupado e medidas por condição.
-5. **Discuta** o papel do histórico, limites de generalização e explicação causal.
-6. **Entregue** código, notebook, resultados, tabelas, figuras e relatório.
-
-### Perguntas para discussão com a professora
-
-- A melhora com histórico reflete aprendizado da influência algorítmica ou autocorrelação individual da resposta?
-- Qual seria o resultado se o modelo recebesse apenas o histórico de **conselhos**, excluindo o histórico de **erros humanos**?
-- Como generalizar para novos tipos de estímulo, não somente novos participantes?
-- Por que importância de atributos em árvores não comprova relação causal?
-- Como variaria a análise para prever a **ponderação** do conselho, se formalizarmos seu instante e semântica?
-
-## 10. Referências
-
-- Glickman, M.; Sharot, T. *How human–AI feedback loops alter human perceptual, emotional and social judgements*. **Nature Human Behaviour** 9, 345–359 (2025). DOI: 10.1038/s41562-024-02077-2.
-- Quinlan, J. R. (1986). *Induction of decision trees*. Machine Learning 1, 81–106.
+- Glickman, M.; Sharot, T. *How human-AI feedback loops alter human perceptual, emotional and social judgements*. **Nature Human Behaviour** 9, 345-359 (2025). DOI: 10.1038/s41562-024-02077-2.
+- Quinlan, J. R. (1986). *Induction of decision trees*. Machine Learning 1, 81-106.
 - Loh, W.-Y. (2011). *Classification and Regression Trees*. WIREs Data Mining and Knowledge Discovery.
 - Loh, W.-Y. (2014). *Fifty years of classification and regression trees*. International Statistical Review.
 - Strobl, C. et al. (2007). *Bias in random forest variable importance measures*. BMC Bioinformatics 8, 25.
